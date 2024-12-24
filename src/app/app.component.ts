@@ -17,26 +17,21 @@ import { PhotosView } from './models/photos-view';
 export class AppComponent implements OnInit {
   title = 'angular-anti-corruption-pattern';
   private photosFacade = inject(PhotosFacade);
-  private dataPhotosList = new Array<PhotosView>();
+  
+  private dataList = new Array<PhotosView>();
 
-  get DataPhotosList() {
-    return this.dataPhotosList;
+  get DataList() {
+    return this.dataList;
   }
 
-  onGetDataPhotosView() {
-    return this.photosFacade.newDataPhotosForAlbum$.subscribe(
-      (data) => {
-        return this.dataPhotosList.push(
-          {
-            id: data.id,
-            title: data.title
-          }
-        );
-      }
-    );
-  }
 
   ngOnInit(): void {
-    this.onGetDataPhotosView();
+    this.photosFacade.dataPhotosList$.subscribe(
+      (data) => {
+        if(data != null || data != undefined) {
+          this.dataList = data;
+        }
+      }
+    );
   }
 }
