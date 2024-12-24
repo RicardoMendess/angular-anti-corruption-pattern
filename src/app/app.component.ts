@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PhotosFacade } from './services/photos.facade';
+import { PhotosView } from './models/photos-view';
 
 @Component({
   imports: [
@@ -10,9 +11,32 @@ import { PhotosFacade } from './services/photos.facade';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [
-    PhotosFacade
+    PhotosFacade,
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'angular-anti-corruption-pattern';
+  private photosFacade = inject(PhotosFacade);
+  private dataPhotosList = new Array<PhotosView>();
+
+  get DataPhotosList() {
+    return this.dataPhotosList;
+  }
+
+  onGetDataPhotosView() {
+    return this.photosFacade.newDataPhotosForAlbum$.subscribe(
+      (data) => {
+        return this.dataPhotosList.push(
+          {
+            id: data.id,
+            title: data.title
+          }
+        );
+      }
+    );
+  }
+
+  ngOnInit(): void {
+    this.onGetDataPhotosView();
+  }
 }

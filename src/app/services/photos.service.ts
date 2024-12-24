@@ -12,7 +12,9 @@ export class PhotosService {
   private http = inject(HttpClient);
 
   onPhotos() {
-    return this.http.get<PhotosDto>(environment.apiPhotos + '/photos').pipe(
+    const url = `${environment.apiPhotos}/photos/1`;
+
+    return this.http.get<PhotosDto>(url).pipe(
       first(),
       take(1),
     );

@@ -1,11 +1,35 @@
 <section class="container mx-auto">
     <header class="flex justify-center">
         <div class="flex items-start">
-            <span class="text-xl font-bold">Álbum placeholder</span>
+            <span class="text-xl font-bold">Angular Anti Corruption Pattern</span>
         </div>
     </header>
-    <main>
-        
+    <main class="
+        flex
+        justify-center
+        my-10
+        items-center">
+        @for (item of DataPhotosList; track $index) {
+            <div class="
+                border-2 
+                border-red-50 
+                px-2 
+                w-1/2 
+                flex 
+                justify-between 
+                h-full 
+                gap-5
+                rounded-md">
+                <div class="grid grid-rows-2">
+                    <span class="text-black font-bold text-lg">Id</span>
+                    <span class="text-black text-sm">{{ item.id }}</span>
+                </div>
+                <div class="grid grid-rows-2">
+                    <span class="text-black font-bold text-lg">Title</span>
+                    <span class="text-black text-sm">{{ item.title }}</span>
+                </div>
+            </div>
+        }
     </main>
 </section>
 <router-outlet></router-outlet>
