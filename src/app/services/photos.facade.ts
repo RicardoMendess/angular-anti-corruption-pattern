@@ -20,13 +20,15 @@ export class PhotosFacade {
   );
 
   onGetDataPhotosView() {
-    return this.newDataPhotosForAlbum$.subscribe((data) => {
-      return this.dataPhotosList.next([
+    this.newDataPhotosForAlbum$.subscribe(async (data) => {
+      return await this.dataPhotosList.next([
         {
           id: data.id,
           title: data.title,
         },
       ]);
     });
+
+    return this.dataPhotosList$;
   }
 }
